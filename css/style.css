@@ -31,7 +31,7 @@ body {
     background-color: var(--white);
     color: var(--text-dark);
     line-height: 1.6;
-    overflow-x: hidden; /* Prevent horizontal scroll */
+    overflow-x: hidden;
 }
 
 h1, h2, h3, h4, .hero-subtitle { font-family: var(--font-malayalam); }
@@ -248,143 +248,79 @@ ul { list-style: none; }
 .footer-bottom { text-align: center; margin-top: 20px; color: #718096; font-size: 0.85rem; }
 
 /* =========================================
-   8. LEVEL PAGES & CURRICULUM CARD LAYOUT
+   8. LEVEL PAGE LAYOUT (COMPACT ROWS)
    ========================================= */
 .level-header {
-    padding: 60px 0 80px; /* More padding bottom */
-    text-align: center;
-    color: white;
-    margin-bottom: -40px; /* Overlap effect */
+    padding: 50px 0 60px; text-align: center; color: white; margin-bottom: 30px;
 }
 .level-1-theme { background: linear-gradient(135deg, #00C9A7 0%, #008f7a 100%); }
 
-.level-badge {
-    background: rgba(255,255,255,0.25); padding: 5px 15px; border-radius: 50px;
-    font-size: 0.85rem; font-weight: 700; text-transform: uppercase; margin-bottom: 15px; display: inline-block;
-}
 .progress-bar-container {
-    background: rgba(0,0,0,0.2); width: 300px; height: 8px; border-radius: 10px; margin: 20px auto 0;
+    background: rgba(0,0,0,0.2); width: 200px; height: 6px; border-radius: 10px; margin: 15px auto 0;
 }
 .progress-fill { height: 100%; background: #F6AD55; border-radius: 10px; }
-.progress-text { display: block; margin-top: 8px; font-size: 0.8rem; opacity: 0.9; }
 
+/* Row Container */
+.lesson-container { display: flex; flex-direction: column; gap: 20px; padding-bottom: 60px; }
 
-/* --- The Curriculum Card (Split Layout) --- */
-.curriculum-section {
-    display: flex; flex-direction: column; gap: 40px; padding-bottom: 80px;
+.lesson-row {
+    background: white; border: 1px solid #E2E8F0; border-radius: 12px;
+    display: flex; align-items: center; padding: 15px; gap: 20px; transition: 0.2s;
+}
+.lesson-row:hover {
+    transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: var(--primary);
 }
 
-/* .curriculum-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 2fr 1fr; /* 2 parts Video, 1 part Activity */
-    border: 1px solid #E2E8F0;
-} */
-
-.curriculum-card {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-    overflow: hidden;
-    display: grid;
-    /* CHANGED: 1.2fr makes the video side smaller (approx 55% width) */
-    grid-template-columns: 1.2fr 1fr; 
-    border: 1px solid #E2E8F0;
+/* Left: Thumbnail */
+.lesson-thumb {
+    width: 220px; min-width: 220px; height: 125px; position: relative;
+    border-radius: 8px; overflow: hidden; background: #000;
 }
+.lesson-thumb img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: 0.3s; }
 
-/* LEFT SIDE: Main Content */
-.card-main {
-    padding: 30px;
-    border-right: 1px solid #E2E8F0;
-}
-
-.card-header { margin-bottom: 20px; }
-
-.unit-tag {
-    color: var(--secondary); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; display: block; margin-bottom: 5px;
-}
-.card-main h3 { font-size: 1.5rem; color: #2D3748; margin-bottom: 10px; }
-.card-main p { color: #718096; font-size: 1rem; line-height: 1.5; }
-
-/* Video Thumbnail Wrapper */
-.video-wrapper {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    aspect-ratio: 16/9;
-    background: #000;
-}
-.vid-thumb {
-    width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.3s;
-}
-.video-wrapper:hover .vid-thumb { opacity: 0.4; transform: scale(1.05); }
-
-.play-trigger {
+.play-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    color: white; z-index: 2; text-decoration: none;
-}
-.play-circle {
-    width: 60px; height: 60px; background: var(--primary); border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 1.5rem; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(108, 99, 255, 0.4);
-    transition: 0.3s;
+    color: white; font-size: 1.5rem; opacity: 0.8;
 }
-.play-trigger:hover .play-circle { transform: scale(1.1); background: white; color: var(--primary); }
-.play-trigger span { font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; opacity: 0; transform: translateY(10px); transition: 0.3s; }
-.video-wrapper:hover .play-trigger span { opacity: 1; transform: translateY(0); }
+.lesson-row:hover .lesson-thumb img { opacity: 0.5; transform: scale(1.05); }
+.lesson-row:hover .play-overlay { opacity: 1; transform: scale(1.1); }
 
+/* Middle: Info */
+.lesson-info { flex: 1; }
+.lesson-tag { font-size: 0.7rem; font-weight: 800; color: var(--secondary); text-transform: uppercase; }
+.lesson-info h3 { font-size: 1.2rem; margin: 2px 0 5px; color: #2D3748; }
+.lesson-info p { font-size: 0.9rem; color: #718096; line-height: 1.4; margin-bottom: 8px; }
+.btn-text { font-size: 0.85rem; font-weight: 700; color: var(--primary); }
 
-/* RIGHT SIDE: Activity Sidebar */
-.card-sidebar {
-    background: #F8FAFC; /* Light grey background */
-    padding: 25px;
-    display: flex; flex-direction: column;
+/* Right: Activities */
+.lesson-activities {
+    width: 160px; min-width: 160px; border-left: 1px solid #edf2f7;
+    padding-left: 20px; display: flex; flex-direction: column; gap: 8px;
 }
+.act-label { font-size: 0.7rem; font-weight: 700; color: #A0AEC0; text-transform: uppercase; }
 
-.sidebar-header {
-    font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #A0AEC0;
-    margin-bottom: 20px; border-bottom: 2px solid #E2E8F0; padding-bottom: 10px;
+.mini-act-btn {
+    display: flex; align-items: center; gap: 8px;
+    background: #F7FAFC; padding: 8px 12px;
+    border-radius: 6px; font-size: 0.85rem; color: #4A5568;
+    border: 1px solid transparent; transition: 0.2s;
 }
-
-.activity-list { list-style: none; display: flex; flex-direction: column; gap: 15px; }
-
-.act-link {
-    display: flex; align-items: center; gap: 15px;
-    background: white; padding: 15px; border-radius: 12px;
-    border: 1px solid #E2E8F0; transition: 0.2s;
-    text-decoration: none; color: #4A5568;
+.mini-act-btn i { color: var(--primary); }
+.mini-act-btn:hover {
+    background: white; border-color: var(--primary); color: var(--primary);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
-.act-link:hover {
-    border-color: var(--primary); transform: translateX(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-}
-
-/* Activity Icons */
-.act-link i { font-size: 1.2rem; }
-.icon-purple { color: #9F7AEA; }
-.icon-blue { color: #4299E1; }
-.icon-orange { color: #ED8936; }
-.icon-green { color: #48BB78; }
-.icon-dark { color: #2D3748; }
-
-.act-link span { font-size: 0.9rem; line-height: 1.3; }
-.act-link small { color: #A0AEC0; font-size: 0.75rem; display: block; }
 
 /* =========================================
    9. MOBILE RESPONSIVENESS
    ========================================= */
 @media (max-width: 900px) {
-    /* Navbar */
+    /* Home Page */
     .hero-title { font-size: 2.5rem; }
-    
-    /* Hero */
     .hero-visual-stage { height: 350px; margin-top: 20px; }
     .blob-background { width: 320px; height: 320px; }
     
-    /* Roadmap (Stack) */
     .roadmap-line { display: none; }
     .roadmap-steps { flex-direction: column; gap: 30px; align-items: center; }
     .step-node { width: 100%; flex-direction: row; text-align: left; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
@@ -392,12 +328,15 @@ ul { list-style: none; }
     .step-dot { display: none; } 
     .learn-more-btn { margin-left: auto; margin-top: 0; }
     
-    /* Footer */
     .footer-grid { grid-template-columns: 1fr; text-align: center; }
     
-    /* Level Pages */
-    .curriculum-card { grid-template-columns: 1fr; } /* Stack vertically */
-    .card-main { border-right: none; border-bottom: 1px solid #E2E8F0; }
-    .card-sidebar { padding: 20px; }
-    .act-link { padding: 12px; }
+    /* Level Page (Compact Row Stack) */
+    .lesson-row { flex-direction: column; align-items: flex-start; }
+    .lesson-thumb { width: 100%; height: 180px; }
+    .lesson-activities { 
+        width: 100%; min-width: auto; 
+        border-left: none; padding-left: 0; 
+        border-top: 1px solid #edf2f7; padding-top: 15px; 
+        flex-direction: row; flex-wrap: wrap;
+    }
 }
